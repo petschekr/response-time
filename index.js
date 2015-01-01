@@ -67,9 +67,8 @@ module.exports = function responseTime(options) {
       }
 
       this.setHeader(header, val)
+      callback(val)
     })
-    
-    callback(val)
     next()
   }
 }
