@@ -46,6 +46,9 @@ module.exports = function responseTime(options) {
   var suffix = options.suffix !== undefined
     ? Boolean(options.suffix)
     : true
+    
+  // function to call before calling next()
+  var callback = options.callback || function() {}
 
   return function responseTime(req, res, next) {
     var startAt = process.hrtime()
@@ -65,7 +68,8 @@ module.exports = function responseTime(options) {
 
       this.setHeader(header, val)
     })
-
+    
+    callback(val)
     next()
   }
 }
